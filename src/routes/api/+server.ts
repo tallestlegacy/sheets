@@ -5,17 +5,9 @@ import secrets from './arnolds-sheets-944ad35df3c7.json';
 
 // import { google } from 'googleapis';
 
-const headers = [
-	'Facility_Name',
-	'Trn_Id',
-	'Trn_Date',
-	'Trn_Product_Name',
-	'Master_List_Product_Name',
-	'Price_Per_Product_UGX',
-	'Approval_Status_Name',
-	'Recognized',
-	'Month'
-];
+
+
+const headers = "Facility_Name	Trn_Id	Trn_Date	Trn_Product_Name	Product Name	Price_Per_Product_UGX	Approval Status Name	Recognized	Month	Facility_Name_Filter".split("\t")
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
