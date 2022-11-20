@@ -21,6 +21,7 @@ export async function GET() {
 
 		await doc.loadInfo();
 
+	/*	
 		const sheet = doc.sheetsByTitle[SHEET_TITLE];
 		console.log(sheet);
 
@@ -31,15 +32,19 @@ export async function GET() {
 				return row[header];
 			}))
 		})
+	*/
 
 		return new Response(
 			JSON.stringify({
 				status: '200',
 				headers,
-				data
+				data,
+				SHEET_ID
 			})
 		);
 	} catch (e) {
+		sheetData.push(SHEET_ID)
+		sheetData.push(SHEET_TITLE)
 		return new Response(JSON.stringify({ error: e, sheetData }));
 	}
 }
