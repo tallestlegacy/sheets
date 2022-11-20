@@ -34,6 +34,10 @@
     .key {
         font-weight: 600;
     }
+
+    .value {
+        text-align: right;
+    }
 	.record {
         width: 100%;
         display : flex;

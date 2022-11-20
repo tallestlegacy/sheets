@@ -4,8 +4,8 @@
 	
 </script>
 
-<main class="h-screen bg-green-100">
-	<div class="w-[600px] mx-auto">
+<main class="h-screen bg-green-100 w-screen">
+	<div class="max-w-[600px] mx-auto">
 		<h1 class="text-4xl font-bold my-8">Summary</h1>
 
 		{#if $userConsumptionData.length === 0}
