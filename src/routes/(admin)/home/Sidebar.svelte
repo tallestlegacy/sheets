@@ -16,11 +16,6 @@
 			Icon: Icons.UserTagSolid
 		},
 		{
-			label: 'Supply Data',
-			href: '/supply_data',
-			Icon: Icons.BoxesStackedSolid
-		},
-		{
 			label: 'Update DB',
 			href: '/update_db',
 			Icon: Icons.CloudArrowUpSolid
@@ -28,19 +23,22 @@
 	];
 </script>
 
-<Sidebar class="bg-green-600 p-2 flex flex-col gap-4 ">
-	<SidebarWrapper>
-		<SidebarGroup class="grid gap-2">
-			{#each dashboardItems as { label, Icon, href }}
-				<SidebarItem {label} {href} active={href === $page.url.pathname}>
-					<Icon color="#0003" slot="icon" />
-				</SidebarItem>
-			{/each}
-		</SidebarGroup>
-	</SidebarWrapper>
+<Sidebar class="bg-green-600 px-2 py-4 flex flex-col gap-16">
+	<SidebarGroup>
+		{#each dashboardItems as { label, Icon, href }}
+			<SidebarItem
+				{label}
+				{href}
+				active={href === $page.url.pathname}
+				class="{href === $page.url.pathname ? 'bg-white/50 text-green-900' : 'text-white/50 hover:bg-white/10'} rounded-md"
+			>
+				<Icon slot="icon" />
+			</SidebarItem>
+		{/each}
+	</SidebarGroup>
 	<SidebarGroup>
 		<button
-			class="bg-orange-200 text-red-700 font-bold flex gap-4 justify-between px-2 py-3 rounded-lg  w-fit"
+			class="bg-red-50 text-red-800 font-bold flex gap-4 justify-between px-2 py-2 rounded-md w-fit"
 			on:click={() => {
 				workBook.set([]);
 				sheetNames.set([]);

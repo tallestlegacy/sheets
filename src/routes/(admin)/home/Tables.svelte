@@ -18,14 +18,14 @@
 		{/each}
 	</div>
 
-	<div class="overflow-y-scroll p-4 flex flex-col gap-5">
-		<p class="text-bold">
+	<div class="overflow-y-auto p-4 flex flex-col gap-5">
+		<p class="text-bold bg-slate-300 w-fit py-2 px-4 rounded-full">
 			{$workBook[currentSheet].length.toLocaleString()} Records
 		</p>
 
-		<p>
+		<pre class="bg-green-900 p-8 rounded-md text-green-100 overflow-auto">
 {JSON.stringify($workBook[currentSheet][0], null, 2)}
-        </p>
+			</pre>
 	</div>
 </div>
 

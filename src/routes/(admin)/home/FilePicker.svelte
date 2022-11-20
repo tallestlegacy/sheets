@@ -1,11 +1,8 @@
 <script lang="ts">
 	import { workBook, sheetNames } from '$lib/store';
-	import { Fileupload } from 'flowbite-svelte';
+	import { Dropzone, Fileupload } from 'flowbite-svelte';
 	import { utils, read } from 'xlsx';
-
-	let fileuploadprops = {
-		id: 'user_avatar'
-	};
+	import * as Icons from 'svelte-awesome-icons';
 
 	async function fileSelected(e: any) {
 		const file = e.target.files[0];
@@ -22,6 +19,7 @@
 	}
 </script>
 
-<div class="flex place-content-center bg-red-300">
-	<Fileupload {...fileuploadprops} on:change={fileSelected} />
+<div class="flex flex-col gap-8 place-content-center h-fit p-8 w-fit mx-auto">
+	<h1 class="text-4xl font-bold underline" >Upload an Excel Sheet</h1>
+	<Fileupload on:change={fileSelected} />
 </div>
