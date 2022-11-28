@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { getCollection } from '../mongo';
+import { getCollection } from '../../mongo';
 
 export const POST = async ({ request }: any) => {
 	const data = await request.json();
@@ -12,7 +12,7 @@ export const POST = async ({ request }: any) => {
 		);
 
 	try {
-        const collection = await getCollection("consumption-data");
+        const collection = await getCollection("payments");
 
         const delete_res = await collection.deleteMany({});
 
