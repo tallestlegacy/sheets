@@ -1,36 +1,21 @@
 <script lang="ts">
 	import Summary from './Summary.svelte';
-	import { userConsumptionData, userPaymentsData } from '$lib/store';
-	import {
-		Navbar,
-		NavBrand,
-		NavLi,
-		NavUl,
-		Sidebar,
-		SidebarBrand,
-		SidebarGroup,
-		SidebarItem
-	} from 'flowbite-svelte';
-	import * as Icons from 'svelte-awesome-icons';
-	import SideBar from './SideBar.svelte';
+	import { userConsumptionData } from '$lib/store';
 
-	$: facility = '';
+	import TopBar from './TopBar.svelte';
 </script>
 
 {#if $userConsumptionData.length === 0}
 	<p>Loading report ...</p>
 {:else}
-	<div class="flex text-black">
-		<SideBar/>
-		
-		<main
-			class="h-screen overflow-auto  bg-slate-200 w-screen flex flex-col relative p-4 justify-center align-middle"
-		>
+	<main class="w-screen bg-slate-200 relative">
+		<TopBar />
+		<div class="flex justify-center items-center">
 			<div class="max-w-[800px]">
 				<Summary />
 			</div>
-		</main>
-	</div>
+		</div>
+	</main>
 {/if}
 
 <style>

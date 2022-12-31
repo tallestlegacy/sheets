@@ -13,8 +13,10 @@
 
 	let total = 0;
 
+	let data: any = {};
 	let statuses: any = {};
 	let recognized: any = {};
+	let productCount: any = {};
 	$: downpayment = $userPaymentsData[0]['Downpayment Amount (UGX)'] ?? 0;
 
 	$: xlsxStartDate = getExcelDateFromJs(dayjs($startDateFilter, 'YYYY-MM-DD').toDate()) + 1;
@@ -26,18 +28,25 @@
 		);
 	});
 
-	let data: any = {};
-
 	const updateData = (value: any[]) => {
-		console.log(value);
-		let _data: any = {};
+		data = {};
+		statuses = {};
+		recognized = {};
+		productCount = {};
+		total = 0;
+
 		value.forEach((record) => {
 			total += record['Price_Per_Product_UGX'];
 
-			if (!_data[record['Product Name']]) {
-				_data[record['Product Name']] = 0;
+			if (!data[record['Product Name']]) {
+				data[record['Product Name']] = 0;
 			}
-			_data[record['Product Name']] += record['Price_Per_Product_UGX'];
+			data[record['Product Name']] += record['Price_Per_Product_UGX'];
+			
+			if (!productCount[record['Product Name']]) {
+				productCount[record['Product Name']] = 0;
+			}
+			productCount[record['Product Name']] += 1;
 
 			if (!statuses[record['Approval Status Name']]) {
 				statuses[record['Approval Status Name']] = 0;
@@ -49,8 +58,6 @@
 			}
 			recognized[record['Recognized']] += 1; //record['Price_Per_Product_UGX'];
 		});
-
-		data = _data;
 	};
 
 	$: updateData(filteredConsumptionData);
@@ -82,14 +89,23 @@
 			}
 		]
 	};
+	$: chartData4 = {
+		labels: Object.keys(productCount),
+		datasets: [
+			{
+				name: 'Order list summary',
+				values: Object.values(productCount)
+			}
+		]
+	};
 
 	const formatDate = (_date: string) => {
-		return dayjs(_date, 'YYYY-MM-DD').format('dddd DD MMM YYYY');
+		return dayjs(_date, 'YYYY-MM-DD').add(1, 'day').format('dddd DD MMM YYYY');
 	};
 </script>
 
 <div class="flex flex-col gap-2">
-	<div class="p-4 shadow-sm bg-white w-full flex flex-wrap gap-2 text-slate-700">
+	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2">
 		<p class="record">
 			<span class="key"> Total consumption : </span>
 			<span class="value">
@@ -127,25 +143,39 @@
 		{/each}
 	</div>
 
-	<div class="p-4 shadow-sm bg-white w-full flex flex-wrap gap-2">
-		<p class="record">
-			<span class="key"> Date Filter : </span>
-			<span class="text-slate-400 text-sm">
-				<span class="rounded  px-2 py-1">
-					{formatDate($startDateFilter)}
-				</span>
-				to
-				<span class="rounded  px-2 py-1">
-					{formatDate($endDateFilter)}
-				</span>
+	<!-- 	<div class="p-4 shadow-sm bg-white w-full flex flex-wrap gap-2">
+		<p class="record text-slate-400">
+			<span class="key "> Date : </span>
+
+			<span class="text-sm">
+				{#if $startDateFilter == $endDateFilter}
+					<span class="rounded  px-2 py-1">
+						{formatDate($endDateFilter)}
+					</span>
+				{:else}
+					<span class="rounded  px-2 py-1">
+						{formatDate($startDateFilter)}
+					</span>
+					to
+					<span class="rounded  px-2 py-1">
+						{formatDate($endDateFilter)}
+					</span>
+				{/if}
 			</span>
 		</p>
+	</div> -->
+
+	<div class="w-full overflow-auto">
+		<div class="p-4 shadow-sm bg-white max-w-[800px] flex-1  flex flex-col gap-2 h-50">
+			<span class="key">Order List (By Value)</span>
+			<Chart type="bar" data={chartData1} />
+		</div>
 	</div>
 
 	<div class="w-full overflow-auto">
 		<div class="p-4 shadow-sm bg-white max-w-[800px] flex-1  flex flex-col gap-2 h-50">
-			<span class="key">Order List</span>
-			<Chart type="bar" data={chartData1} />
+			<span class="key">Order List (By Count)</span>
+			<Chart type="bar" data={chartData4} />
 		</div>
 	</div>
 

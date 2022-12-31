@@ -1,13 +1,16 @@
 <script>
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { endDateFilter, startDateFilter, userConsumptionData, userPaymentsData } from '$lib/store';
+	import { endDateFilter, startDateFilter, userConsumptionData, userId, userPaymentsData } from '$lib/store';
 
 	import dayjs from 'dayjs';
 	import { getJsDateFromExcel } from 'excel-date-to-js';
 
+	userId.set($page.params.id);
+
+
 	const fetchFacilityData = async () => {
-		const res = await fetch(`/api${$page.url.pathname}`);
+		const res = await fetch(`/api/${$userId}`);
 		const data = await res.json();
 
 		userConsumptionData.set(

@@ -12,3 +12,5 @@ export const userPaymentsData = writable([]);
 
 export const startDateFilter = writable("")
 export const endDateFilter = writable("")
+
+export const userId = writable("");
