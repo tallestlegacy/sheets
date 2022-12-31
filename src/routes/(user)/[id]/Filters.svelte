@@ -24,7 +24,8 @@
 	<div class="grid">
 		<label class="text-xs" for="">End Date</label>
 		<input
-			class="text-sm"
+
+			class="text-sm w-fit"
 			type="date"
 			min={$startDateFilter}
 			max={_endDate.format('YYYY-MM-DD')}

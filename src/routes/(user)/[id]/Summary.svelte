@@ -105,6 +105,9 @@
 </script>
 
 <div class="grid gap-2 py-8 px-4">
+
+	<h1 class="text-2xl font-bold">{$userPaymentsData[0]['Facility Name']}</h1>
+
 	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
 		<p class="record">
 			<span class="key"> Downpayment : </span>
