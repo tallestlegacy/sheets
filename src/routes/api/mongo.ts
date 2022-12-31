@@ -1,9 +1,9 @@
 import { Db, MongoClient } from 'mongodb';
 
 //let uri = process.env.DB_URI;
-const uri = 'mongodb+srv://shelly:aphroditeviking@cluster0.afcsznm.mongodb.net/test';
+const uri = 'mongodb+srv://root:nRG52olcLhGEfvPT@cluster0.qydlww3.mongodb.net/';
 
-const dbName = 'nifty_database';
+const dbName = 'sheets_prototype';
 
 /**
  * @type {MongoClient | null}

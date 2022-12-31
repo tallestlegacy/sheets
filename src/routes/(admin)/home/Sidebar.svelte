@@ -7,7 +7,7 @@
 	const dashboardItems = [
 		{
 			label: 'Local Tables',
-			href: '/',
+			href: '/~',
 			Icon: Icons.TableListSolid
 		},
 		{

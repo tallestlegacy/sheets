@@ -1,0 +1,35 @@
+<script>
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { endDateFilter, startDateFilter, userConsumptionData, userPaymentsData } from '$lib/store';
+
+	import dayjs from 'dayjs';
+	import { getJsDateFromExcel } from 'excel-date-to-js';
+
+	const fetchFacilityData = async () => {
+		const res = await fetch(`/api${$page.url.pathname}`);
+		const data = await res.json();
+
+		userConsumptionData.set(
+			data.consumption.sort(
+				(/** @type {{ [x: string]: number; }} */ a, /** @type {{ [x: string]: number; }} */ b) =>
+					a['Trn_Date'] > b['Trn_Date']
+			)
+		);
+		userPaymentsData.set(data.payments);
+
+		let startDate = $userConsumptionData[0]['Trn_Date'];
+		let endDate = $userConsumptionData[$userConsumptionData.length - 1]['Trn_Date'];
+		let _startDate = dayjs(getJsDateFromExcel(startDate - 1));
+		let _endDate = dayjs(getJsDateFromExcel(endDate - 1));
+
+        startDateFilter.set(_startDate.format("YYYY-MM-DD"))
+        endDateFilter.set(_endDate.format("YYYY-MM-DD"))
+	};
+
+	onMount(() => {
+		fetchFacilityData();
+	});
+</script>
+
+<slot />

@@ -40,7 +40,11 @@
 			{#each $serverConsumptionData as row, index}
 				<div class="cell-grid bg-white p-2 rounded-sm shadow-sm shadow-black/5">
 					<span class="text-gray-400">{index + 1}</span>
-					<span>{row['Facility_Name']}</span>
+					<span>
+						<a href="/{row['Facility_Name']}">
+							{row['Facility_Name']}
+						</a>
+					</span>
 					<span>{row['Product Name']}</span>
 					<span class="text-right">{row['Price_Per_Product_UGX'].toLocaleString()}</span>
 					<span class="text-gray-400">{row['Recognized']}</span>
