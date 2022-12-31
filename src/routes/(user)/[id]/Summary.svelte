@@ -105,40 +105,48 @@
 </script>
 
 <div class="grid gap-2 py-8 px-4">
-	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2">
+	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
+		<p class="record">
+			<span class="key"> Downpayment : </span>
+			<span class="value"> {downpayment.toLocaleString()}</span>
+		</p>
+		<div class="divider">_</div>
+		<p class="record">
+			<span class="key"> Total consumption expenditure : </span>
+			<span class="value">{total.toLocaleString()} </span>
+		</p>
+
+		{#each chartData2.labels as status, index}
+			<p class="record">
+				<span class="key"> {status} claims : </span>
+				{chartData2.datasets[0].values[index].toLocaleString()}
+			</p>
+		{/each}
+		<div class="divider"></div>
+		<p class="record">
+			<span class="key"> Balance : </span>
+			<span class="value">
+				{(downpayment - total).toLocaleString()}
+			</span>
+		</p>
+	</div>
+	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
 		<p class="record">
 			<span class="key"> Total consumption : </span>
 			<span class="value">
 				{$userConsumptionData.length} orders
 			</span>
 		</p>
-		<DropdownDivider />
-		<p class="record">
-			<span class="key"> Downpayment : </span>
-			<span class="value">
-				UGX {downpayment.toLocaleString()}
-			</span>
-		</p>
-		<p class="record">
-			<span class="key"> Total consumption expenditure : </span>
-			<span class="value">
-				UGX {total.toLocaleString()}
-			</span>
-		</p>
-		<DropdownDivider />
-		<p class="record">
-			<span class="key"> Balance : </span>
-			<span class="value">
-				UGX {(downpayment - total).toLocaleString()}
-			</span>
-		</p>
 		{#each chartData3.labels as status, index}
-			<p class="text-right self-end w-fit ">
+			<p class="record">
 				{#if status == 'reviewing'}
-					{chartData3.datasets[0].values[index]} claims under review
+					<span class="key"> Claims under review : </span>
+					{chartData3.datasets[0].values[index]}
 				{:else if status == 'yes'}
-					{chartData3.datasets[0].values[index]} claims accepted
+					<span class="key"> Accepted claims : </span>
+					{chartData3.datasets[0].values[index]}
 				{/if}
+				orders
 			</p>
 		{/each}
 	</div>
@@ -166,26 +174,26 @@
 	</div> -->
 
 	<div class="w-full overflow-auto">
-		<div class="p-4 shadow-sm bg-white max-w-[800px] flex-1  flex flex-col gap-2 h-50">
+		<div class="p-4 shadow-sm bg-white max-w-[800px] flex-1  flex flex-col gap-2 h-50 rounded-sm">
 			<span class="key">Order List (By Value)</span>
 			<Chart type="bar" data={chartData1} />
 		</div>
 	</div>
 
 	<div class="w-full overflow-auto">
-		<div class="p-4 shadow-sm bg-white max-w-[800px] flex-1  flex flex-col gap-2 h-50">
+		<div class="p-4 shadow-sm bg-white max-w-[800px] flex-1  flex flex-col gap-2 h-50 rounded-sm">
 			<span class="key">Order List (By Count)</span>
 			<Chart type="bar" data={chartData4} />
 		</div>
 	</div>
 
 	<div class="gap-2 template">
-		<div class="p-4 shadow-sm bg-white h-50">
+		<div class="p-4 shadow-sm bg-white h-50 rounded-sm">
 			<span class="key">Order Approval Status</span>
 			<Chart type="pie" data={chartData2} />
 		</div>
 
-		<div class="p-4 shadow-sm bg-white h-50">
+		<div class="p-4 shadow-sm bg-white h-50 rounded-sm">
 			<span class="key">Audited Transaction Summary</span>
 			<Chart type="bar" data={chartData3} />
 		</div>
@@ -193,6 +201,12 @@
 </div>
 
 <style>
+	.divider {
+		height: 1px;
+		background-color: gray;
+		opacity: .2;
+		width: 100%;
+	}
 	.key {
 		font-weight: 600;
 	}
@@ -201,6 +215,7 @@
 		text-align: right;
 	}
 	.record {
+		font-size: 0.75rem;
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
