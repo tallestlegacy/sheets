@@ -42,7 +42,7 @@
 				data[record['Product Name']] = 0;
 			}
 			data[record['Product Name']] += record['Price_Per_Product_UGX'];
-			
+
 			if (!productCount[record['Product Name']]) {
 				productCount[record['Product Name']] = 0;
 			}
@@ -104,7 +104,7 @@
 	};
 </script>
 
-<div class="flex flex-col gap-2">
+<div class="grid gap-2 py-8 px-4">
 	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2">
 		<p class="record">
 			<span class="key"> Total consumption : </span>
