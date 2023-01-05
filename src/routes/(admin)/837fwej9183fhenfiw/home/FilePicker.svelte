@@ -18,8 +18,4 @@
 		sheetNames.set(wb.SheetNames);
 	}
 </script>
-
-<div class="flex flex-col gap-8 place-content-center h-fit p-8 w-fit mx-auto">
-	<h1 class="text-4xl font-bold underline" >Upload an Excel Sheet</h1>
-	<Fileupload on:change={fileSelected} />
-</div>
+<Fileupload on:change={fileSelected} />

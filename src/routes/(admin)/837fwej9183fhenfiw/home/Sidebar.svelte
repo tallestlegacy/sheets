@@ -6,7 +6,7 @@
 
 	const dashboardItems = [
 		{
-			label: 'Local Tables',
+			label: 'Consumption Data',
 			href: '',
 			Icon: Icons.TableListSolid
 		},
@@ -14,11 +14,6 @@
 			label: 'Clients',
 			href: 'clients',
 			Icon: Icons.UserLargeSolid
-		},
-		{
-			label: 'Consumption Data',
-			href: 'consumption_data',
-			Icon: Icons.UserTagSolid
 		},
 		{
 			label: 'Update DB',
@@ -39,17 +34,5 @@
 				<Icon slot="icon" />
 			</SidebarItem>
 		{/each}
-	</SidebarGroup>
-	<SidebarGroup>
-		<button
-			class="bg-red-50 text-red-800 font-bold flex gap-4 justify-between px-2 py-2 rounded-md w-fit"
-			on:click={() => {
-				workBook.set([]);
-				sheetNames.set([]);
-			}}
-		>
-			<Icons.TrashCanRegular />
-			<span> Clear Local Table </span>
-		</button>
 	</SidebarGroup>
 </Sidebar>

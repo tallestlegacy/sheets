@@ -14,14 +14,9 @@
 	});
 </script>
 
-<div class="page h-screen overflow-hidden">
+<div class="h-screen relative flex">
 	<Sidebar />
-	<slot />
+	<div class="max-w-screen page h-screen overflow-auto">
+		<slot />
+	</div>
 </div>
-
-<style>
-	.page {
-		display: grid;
-		grid-template-columns: auto 1fr;
-	}
-</style>

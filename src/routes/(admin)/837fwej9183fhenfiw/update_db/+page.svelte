@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { serverClients, workBook } from '$lib/store';
+	import { serverClients, sheetNames, workBook } from '$lib/store';
 	import { onMount } from 'svelte';
 	import * as Icons from 'svelte-awesome-icons';
+	import FilePicker from '../home/FilePicker.svelte';
 
 	let data: any = {
 		state: 'no upload started'
@@ -65,40 +66,53 @@
 </script>
 
 <div class="p-4 h-screen">
-	<pre>
-		{JSON.stringify(clients, null, 2)}
-	</pre>
 	<h1 class="text-4xl underline">Update DB</h1>
-
-	<div class="flex flex-col justify-start w-[100%] gap-8 my-8 h-full overflow-auto">
-		<div class="flex gap-2">
-			<button
-				class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
-				on:click={updateClients}
-			>
-				<Icons.CloudArrowUpSolid />
-				{clients.length} new Client(s)
-			</button>
-			<button
-				class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
-				on:click={updateConsumptionData}
-			>
-				<Icons.CloudArrowUpSolid />
-				Consumption data
-			</button>
-			<button
-				class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
-				on:click={updatePayments}
-			>
-				<Icons.CloudArrowUpSolid />
-				Downpayment data
-			</button>
+	{#if $workBook.length == 0}
+		<div class="p-4">
+			<FilePicker />
 		</div>
+	{:else}
+		<div class="flex flex-col justify-start w-[100%] gap-8 my-8 h-full overflow-auto">
+			<div class="flex flex-wrap  gap-2">
+				<button
+					class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
+					on:click={updateClients}
+				>
+					<Icons.CloudArrowUpSolid />
+					{clients.length} new Client(s)
+				</button>
+				<button
+					class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
+					on:click={updateConsumptionData}
+				>
+					<Icons.CloudArrowUpSolid />
+					Consumption data
+				</button>
+				<button
+					class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
+					on:click={updatePayments}
+				>
+					<Icons.CloudArrowUpSolid />
+					Downpayment data
+				</button>
 
-		<pre class="bg-green-900  rounded-md p-4 text-green-100 overflow-auto flex-1">
+				<button
+					class="bg-red-50 text-red-800 font-bold flex gap-4 justify-between px-2 py-2 rounded-md w-fit"
+					on:click={() => {
+						workBook.set([]);
+						sheetNames.set([]);
+					}}
+				>
+					<Icons.TrashCanRegular />
+					<span> Clear Local Table </span>
+				</button>
+			</div>
+
+			<pre class="bg-green-900  rounded-md p-4 text-green-100 overflow-auto flex-1">
 Response data : 
 
 {JSON.stringify(data, null, 2)}
         </pre>
-	</div>
+		</div>
+	{/if}
 </div>

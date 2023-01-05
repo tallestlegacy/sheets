@@ -26,8 +26,8 @@
 	$: tableCols = $serverConsumptionData.length > 0 ? Object.keys($serverConsumptionData[0]) : [];
 </script>
 
-<div class="flex flex-col overflow-auto">
-	<h1 class="p-4 text-4xl font-bold underline border-b-black/10 border-b-2">Consumption data</h1>
+<div class="flex flex-col">
+	<h1 class="p-4 text-4xl font-bold underline border-b-black/10 border-b-2 sticky top-0 z-30 bg-white">Consumption data</h1>
 
 	{#if $serverConsumptionData.length == 0}
 		<div class="p-8">
@@ -48,8 +48,8 @@
 			{/each}
 		{/if}
 	{:else}
-		<div class="table-grid p-4">
-			<Table>
+		<div class="p-4 bg-green-50">
+			<Table shadow striped>
 				<TableHead>
 					<TableHeadCell>idx</TableHeadCell>
 					<TableHeadCell>ID</TableHeadCell>
@@ -58,10 +58,10 @@
 					<TableHeadCell>Date</TableHeadCell>
 					<TableHeadCell>Approval</TableHeadCell>
 				</TableHead>
-				<TableBody>
+				<TableBody >
 					{#each $serverConsumptionData as row, index}
 						<TableBodyRow>
-							<TableBodyCell>{index}</TableBodyCell>
+							<TableBodyCell>{index + 1}</TableBodyCell>
 							<TableBodyCell>{row.Facility_Name}</TableBodyCell>
 							<TableBodyCell>{row["Product Name"]}</TableBodyCell>
 							<TableBodyCell>{row.Price_Per_Product_UGX.toLocaleString()}</TableBodyCell>
@@ -74,19 +74,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	.table-grid {
-		background-color: whitesmoke;
-		overflow: auto;
-		height: 100%;
-		display: grid;
-		gap: 0.2rem;
-	}
-	.cell-grid {
-		display: grid;
-		grid-template-columns: 2rem 1fr 2fr 1fr 1fr;
-		align-items: flex-start;
-		gap: 1rem;
-	}
-</style>

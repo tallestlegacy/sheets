@@ -12,7 +12,6 @@
 
 <div>
 	<h1 class="p-4 text-4xl font-bold underline border-b-black/10 border-b-2">Clients</h1>
-
 	<Table>
 		<TableHead>
 			<TableHeadCell>ID</TableHeadCell>
