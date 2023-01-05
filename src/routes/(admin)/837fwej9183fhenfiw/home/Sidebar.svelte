@@ -7,17 +7,17 @@
 	const dashboardItems = [
 		{
 			label: 'Local Tables',
-			href: '/~',
+			href: '',
 			Icon: Icons.TableListSolid
 		},
 		{
 			label: 'Consumption Data',
-			href: '/consumption_data',
+			href: 'consumption_data',
 			Icon: Icons.UserTagSolid
 		},
 		{
 			label: 'Update DB',
-			href: '/update_db',
+			href: 'update_db',
 			Icon: Icons.CloudArrowUpSolid
 		}
 	];
@@ -28,9 +28,9 @@
 		{#each dashboardItems as { label, Icon, href }}
 			<SidebarItem
 				{label}
-				{href}
-				active={href === $page.url.pathname}
-				class="{href === $page.url.pathname ? 'bg-white/50 text-green-900' : 'text-white/50 hover:bg-white/10'} rounded-md"
+				href="/837fwej9183fhenfiw/{href}"
+				active={`"/837fwej9183fhenfiw/${href}` === $page.url.pathname}
+				class="{`"/837fwej9183fhenfiw/${href}` === $page.url.pathname ? 'bg-white/50 text-green-900' : 'text-white/50 hover:bg-white/10'} rounded-md"
 			>
 				<Icon slot="icon" />
 			</SidebarItem>
