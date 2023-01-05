@@ -7,9 +7,8 @@
 	<div class="flex justify-center px-4 ">
 		<img
 			src="https://maishameds.org/wp-content/uploads/2016/06/CMYK-1_web_200-1.png"
-			class="h-8 sm:h-9"
+			class="h-12 sm:h-9"
 			alt="logo"
 		/>
 	</div>
-	<Filters />
 </div>

@@ -111,25 +111,25 @@
 	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
 		<p class="record">
 			<span class="key"> Downpayment : </span>
-			<span class="value"> {downpayment.toLocaleString()}</span>
+			<span class="value"> UGX {downpayment.toLocaleString()}</span>
 		</p>
 		<div class="divider">_</div>
 		<p class="record">
 			<span class="key"> Total consumption expenditure : </span>
-			<span class="value">{total.toLocaleString()} </span>
+			<span class="value"> UGX {total.toLocaleString()} </span>
 		</p>
 
 		{#each chartData2.labels as status, index}
 			<p class="record">
 				<span class="key"> {status} claims : </span>
-				{chartData2.datasets[0].values[index].toLocaleString()}
+				UGX {chartData2.datasets[0].values[index].toLocaleString()}
 			</p>
 		{/each}
 		<div class="divider"></div>
 		<p class="record">
 			<span class="key"> Balance : </span>
 			<span class="value">
-				{(downpayment - total).toLocaleString()}
+				UGX {(downpayment - total).toLocaleString()}
 			</span>
 		</p>
 	</div>

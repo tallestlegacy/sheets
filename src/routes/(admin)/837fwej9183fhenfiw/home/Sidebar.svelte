@@ -11,6 +11,11 @@
 			Icon: Icons.TableListSolid
 		},
 		{
+			label: 'Clients',
+			href: 'clients',
+			Icon: Icons.UserLargeSolid
+		},
+		{
 			label: 'Consumption Data',
 			href: 'consumption_data',
 			Icon: Icons.UserTagSolid
@@ -29,8 +34,7 @@
 			<SidebarItem
 				{label}
 				href="/837fwej9183fhenfiw/{href}"
-				active={`"/837fwej9183fhenfiw/${href}` === $page.url.pathname}
-				class="{`"/837fwej9183fhenfiw/${href}` === $page.url.pathname ? 'bg-white/50 text-green-900' : 'text-white/50 hover:bg-white/10'} rounded-md"
+				class="{`"/837fwej9183fhenfiw/${href}` === $page.url.pathname ? 'bg-white/50 text-green-900' : 'text-white hover:bg-white/10 hover:text-black'} rounded-md"
 			>
 				<Icon slot="icon" />
 			</SidebarItem>

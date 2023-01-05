@@ -3,6 +3,7 @@
 	import { userConsumptionData } from '$lib/store';
 
 	import TopBar from './TopBar.svelte';
+	import Filters from './Filters.svelte';
 </script>
 
 <main class="bg-slate-200 relative min-h-screen">
@@ -15,5 +16,6 @@
 				<Summary />
 			</div>
 		</div>
+		<Filters />
 	{/if}
 </main>
