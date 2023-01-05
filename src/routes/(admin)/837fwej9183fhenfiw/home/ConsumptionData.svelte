@@ -23,10 +23,10 @@
 		loadingData = false;
 	};
 
-	$: tableCols = $serverConsumptionData.length > 0 ? Object.keys($serverConsumptionData[0]) : [];
+//	$: tableCols = $serverConsumptionData.length > 0 ? Object.keys($serverConsumptionData[0]) : [];
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col w-full">
 	<h1 class="p-4 text-4xl font-bold underline border-b-black/10 border-b-2 sticky top-0 z-30 bg-white">Consumption data</h1>
 
 	{#if $serverConsumptionData.length == 0}
