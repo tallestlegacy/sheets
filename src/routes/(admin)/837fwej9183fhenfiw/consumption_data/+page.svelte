@@ -1,6 +1,16 @@
 <script>
 	import { serverConsumptionData } from '$lib/store';
-	import { Skeleton, Table } from 'flowbite-svelte';
+	import dayjs from 'dayjs';
+	import { getJsDateFromExcel } from 'excel-date-to-js';
+	import {
+		Skeleton,
+		Table,
+		TableBody,
+		TableBodyCell,
+		TableBodyRow,
+		TableHead,
+		TableHeadCell
+	} from 'flowbite-svelte';
 	import * as Icons from 'svelte-awesome-icons';
 
 	let loadingData = false;
@@ -32,24 +42,35 @@
 
 		{#if loadingData}
 			{#each ['', ''] as _}
+			<div class="p-8">
 				<Skeleton />
+			</div>
 			{/each}
 		{/if}
 	{:else}
 		<div class="table-grid p-4">
-			{#each $serverConsumptionData as row, index}
-				<div class="cell-grid bg-white p-2 rounded-sm shadow-sm shadow-black/5">
-					<span class="text-gray-400">{index + 1}</span>
-					<span>
-						<a href="/{row['Facility_Name']}">
-							{row['Facility_Name']}
-						</a>
-					</span>
-					<span>{row['Product Name']}</span>
-					<span class="text-right">{row['Price_Per_Product_UGX'].toLocaleString()}</span>
-					<span class="text-gray-400">{row['Recognized']}</span>
-				</div>
-			{/each}
+			<Table>
+				<TableHead>
+					<TableHeadCell>idx</TableHeadCell>
+					<TableHeadCell>ID</TableHeadCell>
+					<TableHeadCell>Product</TableHeadCell>
+					<TableHeadCell>Price (UGX)</TableHeadCell>
+					<TableHeadCell>Date</TableHeadCell>
+					<TableHeadCell>Approval</TableHeadCell>
+				</TableHead>
+				<TableBody>
+					{#each $serverConsumptionData as row, index}
+						<TableBodyRow>
+							<TableBodyCell>{index}</TableBodyCell>
+							<TableBodyCell>{row.Facility_Name}</TableBodyCell>
+							<TableBodyCell>{row["Product Name"]}</TableBodyCell>
+							<TableBodyCell>{row.Price_Per_Product_UGX.toLocaleString()}</TableBodyCell>
+							<TableBodyCell>{dayjs(getJsDateFromExcel(row.Trn_Date)).format("dd DD MMMM, YYYY")}</TableBodyCell>
+							<TableBodyCell>{row.Recognized}</TableBodyCell>
+						</TableBodyRow>
+					{/each}
+				</TableBody>
+			</Table>
 		</div>
 	{/if}
 </div>
