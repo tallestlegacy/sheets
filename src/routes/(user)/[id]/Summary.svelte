@@ -141,25 +141,24 @@
 	</div>
 	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
 		<p class="record">
-			<span class="key"> Total consumption : </span>
+			<span class="key"> Total claims submitted : </span>
 			<span class="value">
-				{$userConsumptionData.length} orders
+				{$userConsumptionData.length}
 			</span>
 		</p>
 		{#each chartData3.labels as status, index}
 			<p class="record">
 				<span class="key">
 					{#if status == 'reviewing'}
-						Unaudited claims :
+						Unaudited claims
 					{:else if status == 'yes'}
 						Approved claims
 					{:else if status == 'rejected'}
-						Rejected claims:
-					{/if}
+						Rejected claims
+					{/if} :
 				</span>
 				<span>
 					{chartData3.datasets[0].values[index]}
-					orders
 				</span>
 			</p>
 		{/each}
