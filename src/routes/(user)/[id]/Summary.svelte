@@ -105,7 +105,6 @@
 </script>
 
 <div class="grid gap-2 py-8 px-4">
-
 	<h1 class="text-2xl font-bold">{$userPaymentsData[0]['Facility Name']}</h1>
 
 	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
@@ -115,17 +114,24 @@
 		</p>
 		<div class="divider">_</div>
 		<p class="record">
-			<span class="key"> Total consumption expenditure : </span>
+			<span class="key"> Total value transacted : </span>
 			<span class="value"> UGX {total.toLocaleString()} </span>
 		</p>
 
 		{#each chartData2.labels as status, index}
 			<p class="record">
-				<span class="key"> {status} claims : </span>
+				<span class="key">
+					{#if status == 'Pending'}
+						Unaudited
+					{:else}
+						{status}
+					{/if}
+					claims :
+				</span>
 				UGX {chartData2.datasets[0].values[index].toLocaleString()}
 			</p>
 		{/each}
-		<div class="divider"></div>
+		<div class="divider" />
 		<p class="record">
 			<span class="key"> Balance : </span>
 			<span class="value">
@@ -142,14 +148,19 @@
 		</p>
 		{#each chartData3.labels as status, index}
 			<p class="record">
-				{#if status == 'reviewing'}
-					<span class="key"> Claims under review : </span>
+				<span class="key">
+					{#if status == 'reviewing'}
+						Unaudited claims :
+					{:else if status == 'yes'}
+						Approved claims
+					{:else if status == 'rejected'}
+						Rejected claims:
+					{/if}
+				</span>
+				<span>
 					{chartData3.datasets[0].values[index]}
-				{:else if status == 'yes'}
-					<span class="key"> Accepted claims : </span>
-					{chartData3.datasets[0].values[index]}
-				{/if}
-				orders
+					orders
+				</span>
 			</p>
 		{/each}
 	</div>
@@ -207,7 +218,7 @@
 	.divider {
 		height: 1px;
 		background-color: gray;
-		opacity: .2;
+		opacity: 0.2;
 		width: 100%;
 	}
 	.key {
