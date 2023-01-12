@@ -99,6 +99,17 @@
 		]
 	};
 
+	$: balance = (() => {
+		let newBalance: number = downpayment;
+		chartData2.labels.forEach((status: string, index: number) => {
+			if (status != 'Approved') {
+				newBalance -= chartData2.datasets[0].values[index];
+			}
+		});
+
+		return newBalance;
+	})();
+
 	const formatDate = (_date: string) => {
 		return dayjs(_date, 'YYYY-MM-DD').add(1, 'day').format('dddd DD MMM YYYY');
 	};
@@ -135,7 +146,7 @@
 		<p class="record">
 			<span class="key"> Balance : </span>
 			<span class="value">
-				UGX {(downpayment - total).toLocaleString()}
+				UGX {balance.toLocaleString()}
 			</span>
 		</p>
 	</div>
