@@ -24,7 +24,7 @@
 		</p>
 
 		<pre class="bg-green-900 p-8 rounded-md text-green-100 overflow-auto">
-{JSON.stringify($workBook[currentSheet][0], null, 2)}
+{JSON.stringify($workBook[currentSheet][$workBook[currentSheet].length - 1], null, 2)}
 			</pre>
 	</div>
 </div>

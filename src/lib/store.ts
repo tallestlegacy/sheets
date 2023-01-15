@@ -9,7 +9,7 @@ export const serverConsumptionData = writable([]);
 export const serverPayments = writable([]);
 export const serverClients = writable([]);
 export const userConsumptionData = writable([]);
-export const userPaymentsData = writable([]);
+export const userPaymentsData = writable({});
 
 export const startDateFilter = writable("")
 export const endDateFilter = writable("")

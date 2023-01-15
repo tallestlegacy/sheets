@@ -4,12 +4,8 @@
 	import Sidebar from './home/Sidebar.svelte';
 	import * as Icons from 'svelte-awesome-icons';
 	import { drawerHidden } from './home/store';
+	import { fetchClients } from './init';
 
-	const fetchClients = async () => {
-		const response = await fetch('/api/data/clients');
-		const data = await response.json();
-		serverClients.set(data);
-	};
 
 	onMount(() => {
 		fetchClients();

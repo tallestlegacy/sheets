@@ -17,14 +17,16 @@
 	let statuses: any = {};
 	let recognized: any = {};
 	let productCount: any = {};
-	$: downpayment = $userPaymentsData[0]['Downpayment Amount (UGX)'] ?? 0;
+	let carePathway: any = {};
+
+	$: downpayment = $userPaymentsData['Collateral Downpayment'] ?? 0;
 
 	$: xlsxStartDate = getExcelDateFromJs(dayjs($startDateFilter, 'YYYY-MM-DD').toDate()) + 1;
 	$: xlsxEndDate = getExcelDateFromJs(dayjs($endDateFilter, 'YYYY-MM-DD').toDate()) + 1;
 
 	$: filteredConsumptionData = $userConsumptionData.filter((_data) => {
 		return (
-			_data['Trn_Date'] >= Math.round(xlsxStartDate) && _data['Trn_Date'] <= Math.round(xlsxEndDate)
+			_data['TRN_DATE'] >= Math.round(xlsxStartDate) && _data['TRN_DATE'] <= Math.round(xlsxEndDate)
 		);
 	});
 
@@ -33,30 +35,38 @@
 		statuses = {};
 		recognized = {};
 		productCount = {};
+		carePathway = {};
 		total = 0;
 
 		value.forEach((record) => {
-			total += record['Price_Per_Product_UGX'];
+			total += record['Standard Cost Prices'];
 
-			if (!data[record['Product Name']]) {
-				data[record['Product Name']] = 0;
+			if (!data[record['PRODUCT_NAME']]) {
+				data[record['PRODUCT_NAME']] = 0;
 			}
-			data[record['Product Name']] += record['Price_Per_Product_UGX'];
+			data[record['PRODUCT_NAME']] += record['Standard Cost Prices'];
 
-			if (!productCount[record['Product Name']]) {
-				productCount[record['Product Name']] = 0;
+			if (!productCount[record['PRODUCT_NAME']]) {
+				productCount[record['PRODUCT_NAME']] = 0;
 			}
-			productCount[record['Product Name']] += 1;
+			productCount[record['PRODUCT_NAME']] += 1;
 
-			if (!statuses[record['Approval Status Name']]) {
-				statuses[record['Approval Status Name']] = 0;
+			if (!statuses[record['APPROVAL_STATUS_NAME']]) {
+				statuses[record['APPROVAL_STATUS_NAME']] = 0;
 			}
-			statuses[record['Approval Status Name']] += record['Price_Per_Product_UGX'];
+			statuses[record['APPROVAL_STATUS_NAME']] += record['Standard Cost Prices'];
 
 			if (!recognized[record['Recognized']]) {
 				recognized[record['Recognized']] = 0;
 			}
-			recognized[record['Recognized']] += 1; //record['Price_Per_Product_UGX'];
+			recognized[record['Recognized']] += 1;
+
+			if (!carePathway[record['CARE_PATHWAY_TYPE_NAME']]) {
+				carePathway[record['CARE_PATHWAY_TYPE_NAME']] = 0;
+			}
+
+			carePathway[record['CARE_PATHWAY_TYPE_NAME']] += 1;
+			
 		});
 	};
 
@@ -66,7 +76,7 @@
 		labels: Object.keys(data),
 		datasets: [
 			{
-				name: 'Order list summary',
+				name: 'Order List (By Value)',
 				values: Object.values(data)
 			}
 		]
@@ -75,7 +85,7 @@
 		labels: Object.keys(statuses),
 		datasets: [
 			{
-				name: 'Order list summary',
+				name: 'Order Approval Status',
 				values: Object.values(statuses)
 			}
 		]
@@ -84,7 +94,7 @@
 		labels: Object.keys(recognized),
 		datasets: [
 			{
-				name: 'Order list summary',
+				name: 'Audited Transaction Summary',
 				values: Object.values(recognized)
 			}
 		]
@@ -93,8 +103,17 @@
 		labels: Object.keys(productCount),
 		datasets: [
 			{
-				name: 'Order list summary',
+				name: 'Order List (By Count)',
 				values: Object.values(productCount)
+			}
+		]
+	};
+	$: chartData5 = {
+		labels: Object.keys(productCount),
+		datasets: [
+			{
+				name: 'Care Pathway Type',
+				values: Object.values(carePathway)
 			}
 		]
 	};
@@ -116,7 +135,7 @@
 </script>
 
 <div class="grid gap-2 py-8 px-4">
-	<h1 class="text-2xl font-bold">{$userPaymentsData[0]['Facility Name']}</h1>
+	<h1 class="text-2xl font-bold">{$userPaymentsData['facility']}</h1>
 
 	<div class="p-4 shadow-sm bg-white flex flex-wrap gap-2 rounded-sm">
 		<p class="record">
@@ -154,7 +173,7 @@
 		<p class="record">
 			<span class="key"> Total claims submitted : </span>
 			<span class="value">
-				{$userConsumptionData.length}
+				{filteredConsumptionData.length}
 			</span>
 		</p>
 		{#each chartData3.labels as status, index}
@@ -163,9 +182,9 @@
 					{#if status == 'reviewing'}
 						Unaudited claims
 					{:else if status == 'yes'}
-						Approved claims
-					{:else if status == 'rejected'}
-						Rejected claims
+						Audited claims
+					{:else if status == 'no'}
+						Unaudited claims
 					{/if} :
 				</span>
 				<span>
@@ -220,6 +239,11 @@
 		<div class="p-4 shadow-sm bg-white h-50 rounded-sm">
 			<span class="key">Audited Transaction Summary</span>
 			<Chart type="bar" data={chartData3} />
+		</div>
+
+		<div class="p-4 shadow-sm bg-white h-50 rounded-sm">
+			<span class="key">Care Pathway Type</span>
+			<Chart type="pie" data={chartData5} />
 		</div>
 	</div>
 </div>

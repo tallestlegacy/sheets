@@ -13,18 +13,18 @@ export const GET = async ({ params }: any) => {
 		
 		console.log(id)
 
-		const response1 :any = await collection1.find({_id :new ObjectId(id)}).toArray();
+		const response1 :any = await collection1.findOne({_id :new ObjectId(id)});
 		
-		const Facility_Name = response1[0].name_1;
+		const Facility_Name = response1.facility;
 		
-		const response2 = await collection2.find({"Facility_Name": Facility_Name}).toArray();
-		const response3 = await collection3.find({"Facility Name_1": Facility_Name}).toArray();
+		const response2 = await collection2.find({"FACILITY_NAME": Facility_Name}).toArray();
+		//const response3 = await collection3.find({"Facility Name_1": Facility_Name}).toArray();
 		
 
 
 		return json({
 			consumption : response2,
-			payments : response3
+			payments : response1
 		});
 	} catch (e) {
 		return json({ error: e });

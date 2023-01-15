@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import * as Icons from 'svelte-awesome-icons';
 	import FilePicker from '../home/FilePicker.svelte';
+	import { fetchClients } from '../init';
 
 	let data: any = {
 		state: 'no upload started'
@@ -15,7 +16,7 @@
 
 		const response = await fetch('/api/update/consumption', {
 			method: 'POST',
-			body: JSON.stringify($workBook[1])
+			body: JSON.stringify(sales)
 		});
 
 		data.state = 'updated';
@@ -30,7 +31,7 @@
 
 		const response = await fetch('/api/update/payments', {
 			method: 'POST',
-			body: JSON.stringify($workBook[3])
+			body: JSON.stringify($workBook[1])
 		});
 
 		data.state = 'updated';
@@ -38,13 +39,22 @@
 		data.res = await response.json();
 	};
 
-	$: clients = $workBook[3]
-		?.map((record: any) => {
-			return {
-				name: record['Facility Name'],
-				name_1: record['Facility Name_1']
-			};
-		})
+	$: sales = $workBook[6]/*?.map((record:any) => ({
+		//facility_id : record["FACILITY_ID"],
+		facility_name : record["FACILITY_ID"],
+		care_pathway_type : record["CARE_PATHWAY_TYPE_NAME"],
+		date_synced : record["DATE_SYNCED"],
+		trn_date : record["TRN_DATE"],
+		product_name : record["PRODUCT_NAME"],
+		approval_status : record["APPROVAL_STATUS_NAME"],
+		price : record["Standard Cost Prices"],
+		recognized : record["Recognized"],
+
+	}));*/
+	//?.filter((record : any) => record["FACILITY_ID"] != "");
+
+	$: clients = $workBook[0]
+		?.filter((record: any) => record['Sales'] != '')
 		.filter(
 			(record: any) => !$serverClients.find((_record: any) => _record['name_1'] == record['name_1'])
 		);
@@ -62,13 +72,15 @@
 
 		data.state = 'updated';
 		data.res = await response.json();
+
+		await fetchClients();
 	};
 </script>
 
 <div class="p-4 h-screen">
 	<h1 class="text-4xl underline">Update DB</h1>
 	{#if $workBook.length == 0}
-		<div class="p-4">
+		<div class="px-4 py-12">
 			<FilePicker />
 		</div>
 	{:else}
@@ -86,15 +98,15 @@
 					on:click={updateConsumptionData}
 				>
 					<Icons.CloudArrowUpSolid />
-					Consumption data
-				</button>
+					{sales.length} Sales
+				</button><!-- 
 				<button
 					class="bg-green-400 p-2 rounded-md flex justify-between gap-4 text-green-100 hover:-translate-y-[1px] hover:shadow-lg hover:shadow-green-200 transition-all w-fit"
 					on:click={updatePayments}
 				>
 					<Icons.CloudArrowUpSolid />
-					Downpayment data
-				</button>
+					Downpayments
+				</button> -->
 
 				<button
 					class="bg-red-50 text-red-800 font-bold flex gap-4 justify-between px-2 py-2 rounded-md w-fit"
@@ -108,11 +120,11 @@
 				</button>
 			</div>
 
-			<pre class="bg-green-900  rounded-md p-4 text-green-100 overflow-auto flex-1">
+			<pre class="bg-green-900  rounded-md p-4 text-green-100 overflow-auto flex-1">	
 Response data : 
-
+				
 {JSON.stringify(data, null, 2)}
-        </pre>
+			</pre>
 		</div>
 	{/if}
 </div>

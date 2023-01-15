@@ -16,13 +16,13 @@
 		userConsumptionData.set(
 			data.consumption.sort(
 				(/** @type {{ [x: string]: number; }} */ a, /** @type {{ [x: string]: number; }} */ b) =>
-					a['Trn_Date'] > b['Trn_Date']
+					a['TRN_DATE'] > b['TRN_DATE']
 			)
 		);
 		userPaymentsData.set(data.payments);
 
-		let startDate = $userConsumptionData[0]['Trn_Date'];
-		let endDate = $userConsumptionData[$userConsumptionData.length - 1]['Trn_Date'];
+		let startDate = $userConsumptionData[0]['TRN_DATE'];
+		let endDate = $userConsumptionData[$userConsumptionData.length - 1]['TRN_DATE'];
 		let _startDate = dayjs(getJsDateFromExcel(startDate - 1));
 		let _endDate = dayjs(getJsDateFromExcel(endDate - 1));
 

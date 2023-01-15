@@ -11,18 +11,22 @@
 </script>
 
 <div>
-	<h1 class="p-4 text-4xl font-bold underline border-b-black/10 border-b-2">Clients</h1>
+	<h1 class="p-4 text-4xl font-bold underline border-b-black/10 border-b-2">Clients ({$serverClients.length})</h1>
 	<Table>
 		<TableHead>
-			<TableHeadCell>ID</TableHeadCell>
 			<TableHeadCell>Name</TableHeadCell>
-			<TableHeadCell>Url</TableHeadCell>
+			<TableHeadCell>Collateral</TableHeadCell>
+			<TableHeadCell>Supplies</TableHeadCell>
+			<TableHeadCell>Sales</TableHeadCell>
+			<TableHeadCell>_id</TableHeadCell>
 		</TableHead>
 		<TableBody>
 			{#each $serverClients as client}
 				<TableBodyRow>
-					<TableBodyCell>{client.name_1}</TableBodyCell>
-					<TableBodyCell>{client.name}</TableBodyCell>
+					<TableBodyCell>{client.facility}</TableBodyCell>
+					<TableBodyCell>{client["Collateral Downpayment"]?.toLocaleString()}</TableBodyCell>
+					<TableBodyCell>{client["Supplies"]?.toLocaleString()}</TableBodyCell>
+					<TableBodyCell>{client["Sales"]?.toLocaleString()}</TableBodyCell>
 					<TableBodyCell>
 						<a href="/{client._id}">
 							{client._id}

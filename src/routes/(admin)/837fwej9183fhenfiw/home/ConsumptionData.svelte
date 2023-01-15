@@ -63,8 +63,8 @@
 						<TableBodyRow>
 							<TableBodyCell>{index + 1}</TableBodyCell>
 							<TableBodyCell>{row.Facility_Name}</TableBodyCell>
-							<TableBodyCell>{row["Product Name"]}</TableBodyCell>
-							<TableBodyCell>{row.Price_Per_Product_UGX.toLocaleString()}</TableBodyCell>
+							<TableBodyCell>{row["PRODUCT_NAME"]}</TableBodyCell>
+							<TableBodyCell>{row["Standard Cost Prices"].toLocaleString()}</TableBodyCell>
 							<TableBodyCell>{dayjs(getJsDateFromExcel(row.Trn_Date)).format("dd DD MMMM, YYYY")}</TableBodyCell>
 							<TableBodyCell>{row.Recognized}</TableBodyCell>
 						</TableBodyRow>
