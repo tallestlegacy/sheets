@@ -39,7 +39,7 @@
 		data.res = await response.json();
 	};
 
-	$: sales = $workBook[6]/*?.map((record:any) => ({
+	/*?.map((record:any) => ({
 		//facility_id : record["FACILITY_ID"],
 		facility_name : record["FACILITY_ID"],
 		care_pathway_type : record["CARE_PATHWAY_TYPE_NAME"],
@@ -49,9 +49,11 @@
 		approval_status : record["APPROVAL_STATUS_NAME"],
 		price : record["Standard Cost Prices"],
 		recognized : record["Recognized"],
-
+		
 	}));*/
 	//?.filter((record : any) => record["FACILITY_ID"] != "");
+	
+	$: sales = $workBook[6]
 
 	$: clients = $workBook[0]
 		?.filter((record: any) => record['Sales'] != '')
@@ -122,7 +124,8 @@
 
 			<pre class="bg-green-900  rounded-md p-4 text-green-100 overflow-auto flex-1">	
 Response data : 
-				
+
+
 {JSON.stringify(data, null, 2)}
 			</pre>
 		</div>

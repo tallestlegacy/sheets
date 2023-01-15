@@ -17,7 +17,7 @@ export const GET = async ({ params }: any) => {
 		
 		const Facility_Name = response1.facility;
 		
-		const response2 = await collection2.find({"FACILITY_NAME": Facility_Name}).toArray();
+		const response2 = await collection2.find({"Facility Mapping": Facility_Name}).toArray();
 		//const response3 = await collection3.find({"Facility Name_1": Facility_Name}).toArray();
 		
 

@@ -65,7 +65,7 @@
 							<TableBodyCell>{row.Facility_Name}</TableBodyCell>
 							<TableBodyCell>{row["PRODUCT_NAME"]}</TableBodyCell>
 							<TableBodyCell>{row["Standard Cost Prices"].toLocaleString()}</TableBodyCell>
-							<TableBodyCell>{dayjs(getJsDateFromExcel(row.Trn_Date)).format("dd DD MMMM, YYYY")}</TableBodyCell>
+							<TableBodyCell>{dayjs(getJsDateFromExcel(row.TRN_DATE)).format("dd DD MMMM, YYYY")}</TableBodyCell>
 							<TableBodyCell>{row.Recognized}</TableBodyCell>
 						</TableBodyRow>
 					{/each}

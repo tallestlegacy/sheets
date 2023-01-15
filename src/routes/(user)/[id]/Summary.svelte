@@ -18,6 +18,7 @@
 	let recognized: any = {};
 	let productCount: any = {};
 	let carePathway: any = {};
+	let productMapping: any = {};
 
 	$: downpayment = $userPaymentsData['Collateral Downpayment'] ?? 0;
 
@@ -61,8 +62,8 @@
 			}
 			recognized[record['Recognized']] += 1;
 
-			if (!carePathway[record['CARE_PATHWAY_TYPE_NAME']]) {
-				carePathway[record['CARE_PATHWAY_TYPE_NAME']] = 0;
+			if (!carePathway[record['PRODUCT_NAME']]) {
+				carePathway[record['PRODUCT_NAME']] = 0;
 			}
 
 			carePathway[record['CARE_PATHWAY_TYPE_NAME']] += 1;
@@ -107,7 +108,7 @@
 				values: Object.values(productCount)
 			}
 		]
-	};
+	};/* 
 	$: chartData5 = {
 		labels: Object.keys(productCount),
 		datasets: [
@@ -116,7 +117,7 @@
 				values: Object.values(carePathway)
 			}
 		]
-	};
+	}; */
 
 	$: balance = (() => {
 		let newBalance: number = downpayment;
@@ -240,12 +241,11 @@
 			<span class="key">Audited Transaction Summary</span>
 			<Chart type="bar" data={chartData3} />
 		</div>
-
-		<div class="p-4 shadow-sm bg-white h-50 rounded-sm">
-			<span class="key">Care Pathway Type</span>
-			<Chart type="pie" data={chartData5} />
-		</div>
 	</div>
+<!-- 	<div class="p-4 shadow-sm bg-white h-50 rounded-sm">
+		<span class="key">Care Pathway Type</span>
+		<Chart type="bar" data={chartData5} />
+	</div> -->
 </div>
 
 <style>
